@@ -22,13 +22,30 @@ class Applications {
 
         return secret_hash
     }
+
+    async validate(name, secret) {
+        // Get from database
+        let p = new Promise(((resolve, reject) => {
+            this.db.get("SELECT * FROM applications WHERE name = ?", [name],
+                (error, row) => {error ? reject(error) : resolve(row)})
+        }))
+
+        let row = await p
+        // If the name is not in the database, return false
+        if (row === undefined) return false
+
+        // Hash the provided secret and compare, return true if they are equal
+        return row['secret'] === hash(secret, row['salt'], row['iterations']);
+
+
+    }
 }
 
 function generateHash(string) {
     let salt = crypto.randomBytes(20).toString('hex')
     let iterations = randomInt(1000, 10000)
 
-    return {salt: salt, iterations: iterations, hash: hash(string, salt, iterations)}
+    return {input: string, hash: hash(string, salt, iterations), salt: salt, iterations: iterations}
 }
 
 function hash(string, salt, iterations) {
