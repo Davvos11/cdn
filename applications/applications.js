@@ -3,9 +3,9 @@ const path = require('path')
 const crypto = require('crypto')
 
 class Applications {
-    constructor() {
+    constructor(appRoot = global.appRoot) {
         // noinspection JSUnresolvedFunction
-        this.db = new sqlite.Database(path.join(global.appRoot, 'database.db'))
+        this.db = new sqlite.Database(path.join(appRoot, 'database.db'))
         this.db.run("CREATE TABLE IF NOT EXISTS applications " +
             "(name TEXT, secret TEXT, salt TEXT, iterations INTEGER," +
             "PRIMARY KEY(name))")
