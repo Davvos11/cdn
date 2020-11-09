@@ -36,8 +36,6 @@ class Applications {
 
         // Hash the provided secret and compare, return true if they are equal
         return row['secret'] === hash(secret, row['salt'], row['iterations']);
-
-
     }
 }
 

@@ -28,7 +28,7 @@ app.use(fileUpload({
 }));
 
 // Add static files
-app.use(express.static((path.join(global.appRoot, 'uploads'))))
+app.use('uploads', express.static((path.join(global.appRoot, 'uploads'))))
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
@@ -40,10 +40,3 @@ app.post('/upload', upload.upload);
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
-
-async function main() {
-    let a = new Applications()
-    let s = await a.create('test4')
-    console.log('secret', s)
-}
-main().then()
