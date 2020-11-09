@@ -6,7 +6,8 @@ const bodyParser = require('body-parser')
 const fileUpload = require('express-fileupload')
 const _ = require('lodash')
 
-const upload = require('routes/upload')
+const upload = require('./routes/upload')
+const {Applications} = require("./applications/applications");
 
 global.appRoot = path.resolve(__dirname);
 
@@ -39,3 +40,10 @@ app.post('/upload', upload.upload);
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
 })
+
+async function main() {
+    let a = new Applications()
+    let s = await a.create('test4')
+    console.log('secret', s)
+}
+main().then()
