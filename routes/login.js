@@ -14,6 +14,25 @@ async function login(req, res) {
     }
 }
 
+// POST function
+async function signup(req, res) {
+    let name = req.body.name
+
+    if (name === undefined) return res.send(400, "Please provide a name")
+
+    try {
+        let result = await global.applications.create(name)
+        return res.send(result.input) // (return the non-hashed secret)
+    } catch (err) {
+        if (err.code === "SQLITE_CONSTRAINT") {
+            return res.send(400, "An application with that name already exists")
+        } else {
+            throw err
+        }
+    }
+}
+
 module.exports = {
-    login
+    login,
+    signup
 }

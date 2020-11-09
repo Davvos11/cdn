@@ -78,6 +78,8 @@ app.get('/', (req, res) => {
 app.post('/upload', sessionChecker, upload.upload);
 // Login route
 app.post('/login', login.login)
+// Signup route
+app.post('/signup', login.signup)
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)
