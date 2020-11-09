@@ -14,6 +14,11 @@ async function upload (req, res) {
             let appName = req.session.application
             let timestamp = Date.now()
 
+            if (!(files instanceof Array)) {
+                // If a single file is uploaded, change it into an array
+                files = [files]
+            }
+
             // Loop over files
             for (let i in files) {
                 if (!files.hasOwnProperty(i)) continue
