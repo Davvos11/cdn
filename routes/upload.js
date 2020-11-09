@@ -7,36 +7,30 @@ module.exports = {
 async function upload (req, res) {
     try {
         if(!req.files || !req.files['files']) {
-            res.send({
-                status: false,
-                message: 'No files uploaded'
-            });
+            res.send(400, "No files provided");
         } else {
             let data = []
             let files = req.files['files']
+            let appName = req.session.application
+            let timestamp = Date.now()
+
             // Loop over files
             for (let i in files) {
                 if (!files.hasOwnProperty(i)) continue
                 let file = files[i]
 
                 // Move the file to the correct location
-                file.mv(path.join(global.appRoot, 'uploads', file.name));
+                let filepath = path.join('uploads', appName, String(timestamp), file.name)
+                file.mv(path.join(global.appRoot, filepath));
 
-                data.push({
-                    name: file.name,
-                    mimetype: file.mimetype,
-                    size: file.size
-                })
+                data.push(path.join(req.protocol + '://' + req.get('host'), filepath))
             }
 
             //send response
-            res.send({
-                status: true,
-                message: (data.length === 1 ? 'File is uploaded' : 'Files are uploaded'),
-                data: data
-            });
+            res.send(data);
         }
     } catch (err) {
+        console.error(err)
         res.status(500).send(err);
     }
 }

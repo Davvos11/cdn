@@ -68,7 +68,7 @@ let sessionChecker = (req, res, next) => {
 
 
 // Add static files
-app.use('uploads', express.static((path.join(global.appRoot, 'uploads'))))
+app.use('/uploads', express.static((path.join(global.appRoot, 'uploads'))))
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
