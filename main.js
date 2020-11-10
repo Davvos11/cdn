@@ -10,6 +10,7 @@ const crypto = require('crypto')
 
 const upload = require('./routes/upload')
 const login = require('./routes/login')
+const {Deleter} = require("./applications/deleter");
 const {Applications} = require("./applications/applications");
 
 global.appRoot = path.resolve(__dirname);
@@ -19,6 +20,8 @@ const SESSION_KEY_NAME = 'user_sid'
 
 // Create applications object (with database)
 global.applications = new Applications()
+// Create deleter
+global.deleter = new Deleter()
 
 // Setup Express
 const app = express()
