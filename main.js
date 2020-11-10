@@ -76,7 +76,7 @@ app.use('/uploads', express.static((path.join(global.appRoot, 'uploads'))))
 app.get('/', (req, res) => {
     res.send("<h1>Davvos11 CDN</h1><h2>Endpoints</h2>" +
         "POST /login with 'name' and 'secret' as form-data<br>" +
-        "POST /upload with 'files' as (file) form-data")
+        "POST /upload with 'files' and optional 'time' (in seconds) as form-data")
 })
 
 // Upload route
