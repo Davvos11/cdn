@@ -28,7 +28,7 @@ async function upload (req, res) {
                 let filepath = path.join('uploads', appName, String(timestamp), file.name)
                 file.mv(path.join(global.appRoot, filepath));
 
-                data.push(path.join(req.protocol + '://' + req.get('host'), filepath))
+                data.push(`${req.protocol}://${req.get('host')}/${filepath}`)
             }
 
             //send response
