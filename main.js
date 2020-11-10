@@ -71,7 +71,9 @@ let sessionChecker = (req, res, next) => {
 app.use('/uploads', express.static((path.join(global.appRoot, 'uploads'))))
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.send("<h1>Davvos11 CDN</h1><h2>Endpoints</h2>" +
+        "POST /login with 'name' and 'secret' as form-data<br>" +
+        "POST /upload with 'files' as (file) form-data")
 })
 
 // Upload route
@@ -80,5 +82,5 @@ app.post('/upload', sessionChecker, upload.upload);
 app.post('/login', login.login)
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+    console.log(`Davvos11 CDN listening at http://localhost:${port}`)
 })
